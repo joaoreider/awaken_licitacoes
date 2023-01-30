@@ -8,15 +8,20 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.chrome.service import Service
 from bs4 import BeautifulSoup
 from time import sleep
+import time
+
 
 # caminho do diretório de download da tabbela
 BASE_DIR = Path(__file__).resolve().parent.parent
 download_path = os.path.join(BASE_DIR, "downloads")
 
+
 # Criar o diretório de download, se ele não existir
 if not os.path.exists(download_path):
     os.makedirs(download_path)
 
+# Obtém a lista de arquivos antes do download
+files_before = set(os.listdir(download_path))
 
 # setup para baixar a planilha direto na pasta download
 options = webdriver.ChromeOptions()
@@ -56,14 +61,39 @@ print('Download iniciado')
 sleep(1)
 
 
-def every_downloads_chrome(driver):
-    if not driver.current_url.startswith("chrome://downloads"):
-        driver.get("chrome://downloads/")
-    return driver.execute_script("""
-        var items = downloads.Manager.get().items_;
-        if (items.every(e => e.state === "COMPLETE"))
-            return items.map(e => e.fileUrl || e.file_url);
-        """)
-wait = WebDriverWait(browser, 120, 1).until(every_downloads_chrome(browser))
-print('Download finalizado')
+# Esperar o arquivo ser baixado
+file_downloaded = False
+timeout = 60
+start = time.time()
+while not file_downloaded and time.time() - start < timeout:
+
+   
+    try:
+        files_after = set(os.listdir(download_path))
+        try:
+            newly_downloaded_file = files_after - files_before
+        except:
+            print('Não foi possível extrair o novo arquivo de download')
+            sleep(.5)
+        if newly_downloaded_file:
+            # O nome do arquivo baixado é o primeiro item da lista
+            downloaded_file_name = list(newly_downloaded_file)[0]
+            if 'crdownload'  in downloaded_file_name:
+                raise Exception('download não finalizado')
+
+            print('filename: ', downloaded_file_name)
+            file_downloaded = True
+            
+              
+    except:
+        #print(time.time() - start)
+        time.sleep(20)
+
+# Verificar se o arquivo foi baixado
+if file_downloaded:
+    
+    print('arquivo baixado')
+else:
+    print("Tempo de download expirado")
+
 
