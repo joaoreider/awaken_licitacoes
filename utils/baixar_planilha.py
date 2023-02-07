@@ -63,7 +63,7 @@ sleep(1)
 
 # Esperar o arquivo ser baixado
 file_downloaded = False
-timeout = 60
+timeout = 60*4
 start = time.time()
 while not file_downloaded and time.time() - start < timeout:
 
@@ -87,6 +87,7 @@ while not file_downloaded and time.time() - start < timeout:
               
     except:
         #print(time.time() - start)
+        print('Acrescentando 20s')
         time.sleep(20)
 
 # Verificar se o arquivo foi baixado
