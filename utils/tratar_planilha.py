@@ -13,4 +13,8 @@ ultima_planilha = max(lista_de_planilhas, key=lambda x: os.path.getctime(os.path
 # Leitura da planilha (header para ler a partir da linha 46 (onde começa a tabela))
 print(ultima_planilha)
 df = pd.read_excel(os.path.join("downloads", ultima_planilha), header=46)
-print(df.head())
+
+
+# colunas manter: subs, labo, regis, apres, pf 18%
+df = df[['SUBSTÂNCIA', 'LABORATÓRIO', 'REGISTRO', 'APRESENTAÇÃO', 'PF 18%']] 
+print(df)
