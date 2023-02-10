@@ -1,0 +1,22 @@
+
+
+
+08/02/2022
+
+. Não da pra garantir que o preço único do item está correto. A gnt não tem 
+garantia que a quantidade coletada da apresentação está correta. Por isso, quando
+o preço da tabela CMED não bater com a proposta analisada, é melhor informar para o 
+pregoeiro ANALISAR o item e não afirmar que está incorreto. 
+
+
+
+
+ONDE PAREI:
+
+    . coluna Preço unitario (preco com base na quantidade da apresentacao do item)
+
+PROXIMOS PASSOS:
+
+    . Comparar os itens da proposta com a tabela
+    . Conferir com Mateus as quantidades e e precos de cada item da tabela CMED para checar se está ok
+
