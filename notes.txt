@@ -13,10 +13,11 @@ pregoeiro ANALISAR o item e não afirmar que está incorreto.
 
 ONDE PAREI:
 
-    . coluna Preço unitario (preco com base na quantidade da apresentacao do item)
+    . arquivo auditar_proposta: lendo a tabela e a proposta
 
 PROXIMOS PASSOS:
 
-    . Comparar os itens da proposta com a tabela
-    . Conferir com Mateus as quantidades e e precos de cada item da tabela CMED para checar se está ok
+    . Comparar os itens da proposta com a tabela:
+        - Buscar registro > Comparar a marca > Comparar preço
+
 

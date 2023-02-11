@@ -1,53 +1,51 @@
 
-import os
-import pandas as pd
 from funcoes import pegar_quantidade_da_apresentacao
 
-# Encontrar o nome da planilha mais recente
-lista_de_planilhas = os.listdir("downloads")
-# remover um arquivo gerado pelo python que começa com .~lock
-lista_de_planilhas = [x for x in lista_de_planilhas if 'lock' not in x]
-print('l: ', lista_de_planilhas)
+def preco_unitario_tabela_cmed(df):
 
-ultima_planilha = max(lista_de_planilhas, key=lambda x: os.path.getctime(os.path.join("downloads/", x)))
+    """ Calcula o preco unitario do item na tabela CMED.
+    
 
-# Leitura da planilha (header para ler a partir da linha 46 (onde começa a tabela))
-print(ultima_planilha)
-df = pd.read_excel(os.path.join("downloads", ultima_planilha), header=46)
+    Parâmetros: 
 
+        df (pd.dataframe): A tabela CMED que terá o campo preço_unitario calculado
+    Retorno:
 
-# colunas manter: subs, labo, regis, apres, pf 18%
-df = df[['SUBSTÂNCIA', 'LABORATÓRIO', 'REGISTRO', 'APRESENTAÇÃO', 'PF 18%']] 
+       (pd.Dataframe): Tabela com o preço unitário calculado
 
-# coletando as quantidades do item de cada apresentacao
-apresentacoes = df['APRESENTAÇÃO'].values
-quant = []
-for i in apresentacoes:
-    quant.append(pegar_quantidade_da_apresentacao(i))
+    """
 
-df['quantidade'] = quant
+    # coletando as quantidades do item de cada apresentacao
+    apresentacoes = df['APRESENTAÇÃO'].values
+    quant = []
+    for i in apresentacoes:
+        quant.append(pegar_quantidade_da_apresentacao(i))
+
+    df['quantidade'] = quant
 
 
-# Calculando o preco unitário de cada item
-preco_unit = []
-for i, preco in enumerate(df['PF 18%']):
+    # Calculando o preco unitário de cada item
+    preco_unit = []
+    for i, preco in enumerate(df['PF 18%']):
 
-    quantidade = df['quantidade'].iloc[i]
+        quantidade = df['quantidade'].iloc[i]
 
-    if quantidade != -1:
+        if quantidade != -1:
 
-        try: 
-            
-            aux = float(str(preco).replace(',', '.')) / int(quantidade)
-            preco_unit.append(aux)
+            try: 
+                
+                aux = float(str(preco).replace(',', '.')) / int(quantidade)
+                preco_unit.append(aux)
 
-        except:
+            except:
+                preco_unit.append('indisponivel')
+        else:
+
             preco_unit.append('indisponivel')
-    else:
 
-        preco_unit.append('indisponivel')
+    df['preco_unitario_ba'] = preco_unit
 
-df['preco_unitario_ba'] = preco_unit
+    return df
 
-print(df[['APRESENTAÇÃO', 'quantidade', 'preco_unitario_ba']].head(20))
+
 
