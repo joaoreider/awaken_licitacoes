@@ -13,11 +13,10 @@ pregoeiro ANALISAR o item e não afirmar que está incorreto.
 
 ONDE PAREI:
 
-    . arquivo auditar_proposta: lendo a tabela e a proposta
+    . arquivo auditar_proposta: avaliando a proposta de simoes filho
 
 PROXIMOS PASSOS:
 
-    . Comparar os itens da proposta com a tabela:
-        - Buscar registro > Comparar a marca > Comparar preço
+    . testar o programa com outras propostas e corrigir bugs
 
 

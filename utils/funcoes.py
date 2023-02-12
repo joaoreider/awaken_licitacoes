@@ -1,6 +1,6 @@
 
 def pegar_quantidade_da_apresentacao(apresentacao: str) -> int:
-
+    
     """
     Extrai a quantidade do item com base na apresentação.
 
@@ -88,3 +88,53 @@ def pegar_quantidade_da_apresentacao(apresentacao: str) -> int:
     else:
         #print('# Sem quantidade')
         return -1 
+
+def comparar_marca(marca_proposta:str, marca_tabela: str) -> bool:
+    
+    """
+    Compara a marca da proposta com a marca da tabela CMED
+
+    Parâmetros: 
+
+        marca_proposta (str): A marca do item que está na proposta.
+        marca_tabela (str): A marca do item que está na tabela.
+
+    Retorno:
+
+    (bool): True se a marca é a mesma False se não.
+
+    """
+
+    from unidecode import unidecode
+
+    texto1 = unidecode(marca_proposta.upper())
+    texto2 = unidecode(marca_tabela.upper())
+
+    if texto1 in texto2:
+        return True
+
+    return False
+
+def comparar_preco(preco_proposta: float, preco_tabela: float) -> bool:
+    
+    """
+    Compara o preço da proposta com o preço da tabela CMED
+
+    Parâmetros: 
+
+        preço_proposta (str): O preço do item que está na proposta.
+        preço_tabela (str): O preço do item que está na tabela.
+
+    Retorno:
+
+    (bool): True se o preço da proposta for menor ou igual ao da tabela False se não.
+
+    """
+
+    if preco_proposta > preco_tabela:
+        return False
+
+    return True
+
+
+
