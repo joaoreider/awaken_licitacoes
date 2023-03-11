@@ -47,5 +47,32 @@ def preco_unitario_tabela_cmed(df):
 
     return df
 
+def calcula_header_tabela_cmed(df):
 
+    """ Calcula o header (onde vai começar a ler) da tabela CMED.
+    
+
+    Parâmetros: 
+
+        df (pd.dataframe): A tabela CMED
+    Retorno:
+
+       (int): header , -1 se deu erro
+
+    """
+    colunas = ['SUBSTÂNCIA', 'LABORATÓRIO', 'REGIME DE PREÇO']
+    for i in range(len(df)):
+
+        indice = df.iloc[i].values
+
+        resultado = 0
+        try:
+            for palavra in indice:
+                if palavra in colunas:
+                    resultado += 1
+            if resultado == 3:   
+                return i+1
+        except:
+            #raise Exception('N foi possível converter indice para lista')
+            return -1
 

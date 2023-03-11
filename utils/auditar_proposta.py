@@ -1,7 +1,7 @@
 
 import os
 import pandas as pd
-from tratar_planilha import preco_unitario_tabela_cmed
+from tratar_planilha import preco_unitario_tabela_cmed, calcula_header_tabela_cmed
 from tratar_proposta import tratar_proposta_excel_md
 from funcoes import *
 
@@ -14,8 +14,13 @@ print('l: ', lista_de_planilhas)
 ultima_planilha = max(lista_de_planilhas, key=lambda x: os.path.getctime(os.path.join("downloads/", x)))
 
 # Leitura da planilha (header para ler a partir da linha 46 (onde começa a tabela))
-print(ultima_planilha)
-df1 = pd.read_excel(os.path.join("downloads", ultima_planilha), header=46)
+print('PLANILHA MAIS RECENTE:', ultima_planilha)
+
+tabela_calcular_header = pd.read_excel(os.path.join("downloads", ultima_planilha))
+header = calcula_header_tabela_cmed(tabela_calcular_header)
+#print(header)
+df1 = pd.read_excel(os.path.join("downloads", ultima_planilha), header=header)
+
 
 # colunas manter: subs, labo, regis, apres, pf 18%
 df1 = df1[['SUBSTÂNCIA', 'LABORATÓRIO', 'REGISTRO', 'APRESENTAÇÃO', 'PF 18%']] 

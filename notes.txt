@@ -1,4 +1,7 @@
 
+FLUXO DO SISTEMA:
+
+BAIXA A TABELA CMED (arquivo baixar_planilha) -> audita a proposta (arquivo auditar_proposta) 
 
 
 08/02/2022
